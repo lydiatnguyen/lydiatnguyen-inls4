@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 #Survey questions
 
 # Ask question 1: what is their first and last name
@@ -23,11 +24,22 @@ echo "What do you think is the most pressing issue of our time?"
 read worldissues
 
 #save the time
-echo `date --iso-8601`
-read date
+date=`date --iso-8601=seconds`
 
 #create unique identifier
+IDENTIFIER="`echo $RANDOM$RANDOM$RANDOM | sha1sum | sed 's/[^0-9a-fA-F]//g' | sed -e 's/^/0x/'`"
 
 # write data to CSV file
-echo "$name, $major, $year, $dreams, $worldissues, $date" >> surveyanswers.csv
+echo "$IDENTIFIER, $name, $major, $year, $dreams, $worldissues, $date" >> ./surveyanswers.csv
 
+# read the data
+cat ./surveyanswers.csv
+
+# write data to database
+bash ./database.sh
+
+# save data
+cat ./surveyanswers.csv >> backup.csv
+
+# remove temp file
+rm ./surveyanswers.csv
