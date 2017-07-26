@@ -27,7 +27,7 @@ read worldissues
 date=`date --iso-8601=seconds`
 
 #create unique identifier
-IDENTIFIER="`echo $RANDOM$RANDOM$RANDOM | sha1sum | sed 's/[^0-9a-fA-F]//g' | sed -e 's/^/0x/'`"
+IDENTIFIER="`echo $RANDOM
 
 # write data to CSV file
 echo "$IDENTIFIER, $name, $major, $year, $dreams, $worldissues, $date" >> ./surveyanswers.csv
